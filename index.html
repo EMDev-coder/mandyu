@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to top right, #fddde6, #ffe4f3);
+      overflow-x: hidden;
+      text-align: center;
+      color: #fff;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-top: 20px;
+      color: #ff69b4;
+    }
+
+    #slider {
+      width: 300px;
+      height: 250px;
+      margin: 20px auto;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+    .slide{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;  
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    #slider div {
+      display: flex;
+      width: 300%;
+      animation: slide 60s infinite;
+    }
+
+    #slider img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    @keyframes slide {
+      0%, 20% {transform: translateX(0);}
+      25%, 45% {transform: translateX(-100%);}
+      50%, 70% {transform: translateX(-200%);}
+      75%, 100% {transform: translateX(0);}
+    }
+
+    .timer {
+      font-size: 2.5em;
+      color: #ff1493;
+      margin-top: 20px;
+    }
+
+    .balloon {
+      position: absolute;
+      bottom: -150px;
+      width: 60px;
+      height: 80px;
+      border-radius: 50% 50% 45% 45%;
+      animation: float 10s linear infinite;
+      z-index: 1;
+    }
+
+    .balloon::after {
+      content: "";
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      width: 2px;
+      height: 30px;
+      background: #555;
+      transform: translateX(-50%);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-120vh); opacity: 0; }
+    }
+
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    audio {
+      display: none;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      background: #ff69b4;
+      border: none;
+      color: white;
+      font-size: 1.1em;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-top: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    #surprise-card {
+      transition: opacity 1s ease-in-out;
+      opacity: 0;
+      display: none;
+    }
+
+    #surprise-card.show {
+      display: block;
+      opacity: 1;
+    }
+
+    .section {
+      margin: 30px auto;
+      width: 80%;
+      max-width: 600px;
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 15px;
+      color: #fff;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+
+    textarea {
+      width: 100%;
+      height: 80px;
+      border-radius: 10px;
+      padding: 10px;
+      font-size: 1em;
+      resize: none;
+    }
+
+    input[type="file"] {
+      padding: 10px;
+      font-size: 1em;
+    }
+
+    .grand-title {
+      font-size: 3em;
+      color: #ff69b4;
+      animation: grandentrance 3s ease-out forwards;
+      opacity: 0;
+      transform: scale(0.5) translateY(-100px);
+      text-shadow: 0 0 10px #fff, 0 0 20px #ff69b4;
+      margin-top: 40px;
+    }
+
+    @keyframes grandentrance {
+      0% {
+        opacity: 0;
+        transform: scale(0.5) translateY(-100px); 
+      }
+
+      50% { 
+        opacity: 1;
+        transform: scale(1.1) translateY(10px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+  </style>
+</head>
+<body onclick="document.getElementById('bg-music').play()">
+
+  <h1 class="grand-title">Happy Birthday, Princess Amanda!</h1>
+
+  <div id="slider">
+    <div>
+      <img src="mandy1.jpeg" alt="Image 1">
+      <img src="mandy2.jpeg" alt="Image 2">
+      <img src="mandy3.jpeg" alt="Image 3">
+    </div>
+  </div>
+
+  <div class="timer" id="live-clock">00:00:00</div>
+
+  <button class="btn" onclick="showSurprise()">Click for Surprise!</button>
+
+  <div id="surprise-card">
+    <h2 style="color: #ff69b4;">Wishing You the Sweetest Birthday Ever!</h2>
+    <p style="color: #fff;">May all your dreams come true, beautiful!</p>
+  </div>
+
+  <!-- Birthday Poem -->
+  <div class="section">
+    <h3>Birthday Poem</h3>
+    <p>
+      A star was born on this bright day,<br>
+      Spreading love in every way.<br>
+      Smile that shines, soul that glows,<br>
+      Like a blooming rose that always grows.
+    </p>
+  </div>
+
+  <!-- Birthday Prayer -->
+  <div class="section">
+    <h3>Birthday Prayer</h3>
+    <p>
+      May your heart be full of joy, your life filled with grace,<br>
+      May success and peace always find their place.<br>
+      The Lord bless you with strength and light,<br>
+      And guide your steps through day and night.
+    </p>
+  </div>
+
+  <!-- Love Note -->
+  <div class="section">
+    <h3>Write a Love Note</h3>
+    <textarea placeholder="Write something sweet..."></textarea>
+  </div>
+
+  <!-- Voice Message Upload -->
+  <div class="section">
+    <h3>Upload a Voice Message</h3>
+    <input type="file" accept="audio/*">
+  </div>
+
+  <audio id="bg-music" src="https://files.ceenaija.com/wp-content/uploads/music/2024/12/IBQuake_-_The_Experience_19_2024_Performance__CeeNaija.com_.mp3" autoplay loop></audio>
+  <audio id="surprise-sound" src="https://mdundo.com/song/3500892#"></audio>
+  <canvas id="canvas"></canvas>
+
+  <script>
+    // Balloons
+    const colors = ['#ff69b4', '#ff1493', '#ffa07a', '#f08080', '#dda0dd'];
+    for (let i = 0; i < 25; i++) {
+      let b = document.createElement("div");
+      b.className = "balloon";
+      b.style.left = Math.random() * 100 + "vw";
+      b.style.background = colors[Math.floor(Math.random() * colors.length)];
+      b.style.animationDuration = (Math.random() * 5 + 5) + "s";
+      document.body.appendChild(b);
+    }
+
+    // Timer
+    let timerInterval;
+    let time = 10;
+
+    function updateliveclock() {
+      const now = new date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      document.getElementById("live-clock").textContent = '${hours}:${minutes}:${seconds}';
+    }
+
+    setInterval(updateLiveclock, 100);
+    updateLiveclock();
+
+    startTimer();
+
+    // Fireworks
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let fireworks = [];
+
+    function createFirework(x, y) {
+      for (let i = 0; i < 40; i++) {
+        fireworks.push({
+          x, y,
+          angle: Math.random() * 2 * Math.PI,
+          speed: Math.random() * 4 + 2,
+          radius: Math.random() * 2 + 1,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          life: 100
+        });
+      }
+    }
+
+    function animateFireworks() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      fireworks = fireworks.filter(p => p.life > 0);
+      fireworks.forEach(p => {
+        p.x += Math.cos(p.angle) * p.speed;
+        p.y += Math.sin(p.angle) * p.speed;
+        p.life--;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+      });
+      requestAnimationFrame(animateFireworks);
+    }
+
+    setInterval(() => {
+      createFirework(Math.random() * canvas.width, Math.random() * canvas.height / 2);
+    }, 1500);
+
+    animateFireworks();
+
+    function showSurprise() {
+      const card = document.getElementById("surprise-card");
+      card.classList.add("show");
+      document.getElementById("surprise-sound").play();
+      for (let i = 0; i < 5; i++) {
+        createFirework(
+          Math.random() * canvas.width,
+          Math.random() * canvas.height / 2
+        );
+      }
+    }
+  </script>
+</body>
+</html>
